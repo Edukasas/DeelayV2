@@ -1,21 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/config/constants/colors.dart';
 
 class Header extends StatelessWidget implements PreferredSizeWidget {
-  const Header({super.key});
+  final double height;
+
+  const Header({super.key, this.height = 64});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true, // Ensures the title is centered
-      title: const Text(
-        'Deelay', // This is the static text, can later be replaced with a logo.
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      backgroundColor: Deelay.neutral900,
+      toolbarHeight: height,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            constraints: const BoxConstraints(
+              maxHeight: 64, // Set maximum height for the logo
+            ),
+            child: Image.asset(
+              'assets/images/logo.png', // Path to your logo image
+              height: 32,
+              fit: BoxFit.contain, // Maintains aspect ratio
+            ),
+          ),
+        ],
       ),
-      elevation:
-          0, // You can customize the elevation or other properties as needed.
+      elevation: 0,
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(height);
 }
