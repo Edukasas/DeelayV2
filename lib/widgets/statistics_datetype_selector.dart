@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/config/constants/colors.dart';
 
-
-// || HOW TO USE,
-// INPUTS: an onclick function
-// OUTPUTS: on button click outputs the onclick function
-
 class DateTypeSelector extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;

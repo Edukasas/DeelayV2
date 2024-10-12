@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/config/constants/colors.dart';
-import 'package:myapp/widgets/AUDRIUI_DAY.dart';
-import 'package:myapp/widgets/AUDRIUI_WEEK.dart';
+import 'package:myapp/widgets/statistics_day_container.dart';
+import 'package:myapp/widgets/statistics_week_container.dart';
 import 'package:myapp/widgets/statistics_datetype_selector.dart';
 
 class StatisticsScreen extends StatefulWidget{
@@ -14,10 +14,9 @@ class StatisticsScreen extends StatefulWidget{
 class _StatisticsScreenState extends State<StatisticsScreen> {
   int _currentIndex = 0;
 
-  // SITI DU YRA WIDGETS KUR TU DESI SAVO STATISTIKA
   final List<Widget> _stats = [
-    const DayStatistics(), // CONTAINERI SUKURT
-    const WeekStatistics(), // CONTAINERI SUKURT
+    const DayStatistics(),
+    const WeekStatistics(),
   ];
 
   void _onOptionTapped(int index) {
