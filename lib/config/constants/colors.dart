@@ -16,4 +16,6 @@ class Deelay {
 
   // Other Colors
   static const Color pink = Color(0xFFD0BCFF); // Pink color
+  // Text Colors
+  static const Color subtle = Color(0xFFEADDFF); // Pink color
 }

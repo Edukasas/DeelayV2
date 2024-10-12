@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/custom_button.dart'; // Importing the custom widget.
+import 'package:myapp/widgets/add_limit_button.dart';
+// import 'package:myapp/widgets/app_block_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,8 +20,7 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 20),
-            CustomButton(
-              text: 'Click Me',
+            AddLimitButton(
               onPressed: () {
                 // Define the action on button click here.
                 print('Button clicked!');
