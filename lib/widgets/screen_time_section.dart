@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/config/constants/colors.dart';
 import 'package:myapp/widgets/screen_time_circle.dart';
+import 'package:myapp/widgets/screen_time_info.dart';
 
 class ScreenTimeSection extends StatefulWidget {
   const ScreenTimeSection({super.key});
@@ -49,12 +50,9 @@ class _ScreenTimeSectionState extends State<ScreenTimeSection> {
           ),
           ScreenTimeCircle(),
           SizedBox(height: 8), // Space between additional texts
-          Text(
-            'Additional Info 2', // Second additional text
-            style: TextStyle(
-              color: Deelay.neutral000,
-              fontSize: 16,
-            ),
+          SizedBox(
+            height: 100, // Adjust height as needed
+            child: ScreenTimeInfo(),
           ),
         ],
       ),
