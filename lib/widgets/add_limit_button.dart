@@ -33,14 +33,16 @@ class AddLimitButton extends StatelessWidget {
               // ignore: deprecated_member_use
               child: SvgPicture.asset('assets/icons/icon.svg', color: Deelay.subtle),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 4.0),
-              child: const Text(
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Deelay.subtle,
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 4.0, bottom: 1.0),
+                child: const Text(
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Deelay.subtle,
+                  ),
+                  'Add limit'
                 ),
-                'Add limit'
               ),
             ),
           ],
