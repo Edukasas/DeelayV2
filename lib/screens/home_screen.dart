@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets/custom_button.dart'; // Importing the custom widget.
+import 'package:myapp/config/constants/colors.dart';
+import 'package:myapp/widgets/screen_time_section.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -7,25 +8,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Screen'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(color: Deelay.neutral900),
+        child: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
-              'Welcome to the Home Screen!',
-              style: TextStyle(fontSize: 24),
-            ),
-            const SizedBox(height: 20),
-            CustomButton(
-              text: 'Click Me',
-              onPressed: () {
-                // Define the action on button click here.
-                print('Button clicked!');
-              },
-            ),
+            SizedBox(height: 20),
+            ScreenTimeSection(), // Use the widget correctly here
           ],
         ),
       ),
