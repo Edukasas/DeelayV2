@@ -1,17 +1,21 @@
 package com.example.myapp
 
 import android.content.Intent
+import android.app.AppOpsManager
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.Base64
+import android.app.usage.UsageStats
+import android.app.usage.UsageStatsManager
+import android.content.Context
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import java.io.ByteArrayOutputStream
+import java.util.Calendar
 import android.graphics.Canvas
 
 class MainActivity : FlutterActivity() {
@@ -20,29 +24,73 @@ class MainActivity : FlutterActivity() {
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
-        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
-            if (call.method == "getAllApps") {
-                val apps = getInstalledApps()
-                result.success(apps)
+MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
+    when (call.method) {
+        "getAppUsageStats" -> {
+            val args = call.arguments as Map<String, Long>
+            val startDate = args["startDate"] ?: 0
+            val endDate = args["endDate"] ?: 0
+            if (checkUsageStatsPermission()) {
+                val usageStats = getAppUsageStats(startDate, endDate)
+                result.success(usageStats)
             } else {
-                result.notImplemented()
+                requestUsageStatsPermission()
+                result.success(null)
             }
         }
+        else -> result.notImplemented()
     }
+}
+
+    }
+
+    private fun getAppUsageStats(startDate: Long, endDate: Long): List<Map<String, Any>>? {
+    val usageStatsManager = getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+
+    val usageStatsList: List<UsageStats> = usageStatsManager.queryUsageStats(
+        UsageStatsManager.INTERVAL_DAILY,
+        startDate,
+        endDate
+    )
+
+    val installedApps = getInstalledApps().map { it["packageName"] as String }
+
+    val usageData = mutableListOf<Map<String, Any>>()
+
+    for (usageStats in usageStatsList) {
+        if (installedApps.contains(usageStats.packageName)) {
+            val appName = packageManager.getApplicationLabel(
+                packageManager.getApplicationInfo(usageStats.packageName, PackageManager.GET_META_DATA)
+            ).toString()
+
+            val usageMap = mapOf(
+                "packageName" to usageStats.packageName,
+                "appName" to appName,
+                "totalTimeForeground" to usageStats.totalTimeInForeground
+            )
+
+            usageData.add(usageMap)
+        }
+    }
+
+    return usageData
+}
+
 
     private fun getInstalledApps(): List<Map<String, Any>> {
         val packageManager: PackageManager = this.packageManager
         val apps = mutableListOf<Map<String, Any>>()
 
-        val installedApplications: List<ApplicationInfo> = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+        val launchIntent = Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_LAUNCHER)
+        val launchableApps = packageManager.queryIntentActivities(launchIntent, PackageManager.GET_META_DATA)
+        
+        for (resolveInfo in launchableApps) {
+            val appInfo = resolveInfo.activityInfo.applicationInfo
+            val appName = packageManager.getApplicationLabel(appInfo).toString()
+            val packageName = appInfo.packageName
+            val icon = getAppIconAsBase64(appInfo) ?: "" 
 
-        for (appInfo in installedApplications) {
-            if (isLaunchableApp(appInfo)) {
-                val appName = packageManager.getApplicationLabel(appInfo).toString()
-                val packageName = appInfo.packageName
-                val icon = getAppIconAsBase64(appInfo) ?: "" // Provide a default value if null
-                apps.add(mapOf("name" to appName, "packageName" to packageName, "icon" to icon))
-            }
+            apps.add(mapOf("name" to appName, "packageName" to packageName, "icon" to icon))
         }
 
         return apps
@@ -53,7 +101,6 @@ class MainActivity : FlutterActivity() {
         val drawable: Drawable = packageManager.getApplicationIcon(appInfo)
         val bitmap = drawableToBitmap(drawable)
 
-        // Convert Bitmap to Base64
         val stream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
         val byteArray = stream.toByteArray()
@@ -71,13 +118,19 @@ class MainActivity : FlutterActivity() {
             bitmap
         }
     }
+    
+    private fun checkUsageStatsPermission(): Boolean {
+    val packageManager = packageManager
+    val appOps = getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+    val mode = appOps.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, 
+                                       android.os.Process.myUid(), 
+                                       packageName)
 
-    private fun isLaunchableApp(appInfo: ApplicationInfo): Boolean {
-        val intent = Intent(Intent.ACTION_MAIN, null)
-        intent.addCategory(Intent.CATEGORY_LAUNCHER)
+    return mode == AppOpsManager.MODE_ALLOWED
+    }
 
-        val launchableActivities: List<ResolveInfo> = packageManager.queryIntentActivities(intent, 0)
-
-        return launchableActivities.any { it.activityInfo.packageName == appInfo.packageName }
+    private fun requestUsageStatsPermission() {
+        val intent = Intent(android.provider.Settings.ACTION_USAGE_ACCESS_SETTINGS)
+        startActivity(intent)
     }
 }
