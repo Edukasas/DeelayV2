@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/widgets/categories_durationlimitselection.dart';
-// import 'package:myapp/widgets/app_block_list.dart';
+import 'package:myapp/config/constants/colors.dart';
+import 'package:myapp/widgets/screen_time_section.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,14 +8,14 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(color: Deelay.neutral900),
+        child: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            TimeLimitWidget(),
-          //  Container(
-            // child: TimeLimitWidget(),
-          //  )
+            SizedBox(height: 20),
+            ScreenTimeSection(), // Use the widget correctly here
           ],
         ),
       ),
