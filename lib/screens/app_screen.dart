@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/widgets/add_limit_button.dart';
-// import 'package:myapp/widgets/add_limit_button.dart';
 import 'package:myapp/widgets/empty_app_limits.dart';
 import 'package:myapp/config/constants/colors.dart';
 
@@ -10,22 +9,23 @@ class AppScreen extends StatelessWidget {
 @override
 Widget build(BuildContext context) {
   return Scaffold(
+    backgroundColor: Deelay.neutral900,
     body: Container(
-      width: double.infinity, // Ensures the container takes full width
-      color: Deelay.neutral900, // Your custom color
+      width: double.infinity,
+      color: Deelay.neutral900,
       child: Column(
         children: [
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center, // Centers vertically
-              crossAxisAlignment: CrossAxisAlignment.center, // Centers horizontally
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                EmptyAppLimits(), // This will be centered in the screen
+                EmptyAppLimits(),
               ],
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(bottom: 20, right: 20), // Adds space from bottom
+            padding: const EdgeInsets.only(bottom: 20, right: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

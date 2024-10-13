@@ -4,6 +4,7 @@ import 'screens/statistics_screen.dart'; // Importing the StatisticsScreen.
 import 'screens/app_screen.dart'; // Importing the AppScreen.
 import 'widgets/footer.dart'; // Importing footer widget.
 import 'widgets/header.dart'; // Importing header widget.
+import 'package:myapp/config/constants/colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MainScreen(), // Setting HomeScreen as the default screen.
+      home: const MainScreen(),
     );
   }
 }
@@ -50,11 +51,12 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Deelay.neutral900,
       appBar: const Header(),
-      body: _screens[_currentIndex], // Display the current screen.
+      body: _screens[_currentIndex],
       bottomNavigationBar: Footer(
-        currentIndex: _currentIndex, // Current tab.
-        onTap: _onTabTapped, // Handle tab switching.
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
       ),
     );
   }
