@@ -38,6 +38,8 @@ class Deelay {
   static const Color chart900 = Color(0xFFD0BCFF);
   static const Color chart950 = Color(0xFFD0BCFF);
   static const Color chart999 = Color(0xFFD0BCFF);
+
+  static const Color subtle = Color(0xFFEADDFF); // Pink color
 }
 
 // ignore: constant_identifier_names
