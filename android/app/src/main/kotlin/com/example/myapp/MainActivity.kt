@@ -26,6 +26,10 @@ class MainActivity : FlutterActivity() {
 
 MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
     when (call.method) {
+                "getAllApps" -> {
+            val installedApps = getInstalledApps()
+            result.success(installedApps)
+        }
         "getAppUsageStats" -> {
             val args = call.arguments as Map<String, Long>
             val startDate = args["startDate"] ?: 0

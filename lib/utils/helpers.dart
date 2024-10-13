@@ -23,3 +23,23 @@ class Base64Helper {
     }
   }
 }
+
+List<Map<String, dynamic>> combineAppsAndUsage(
+    List<Map<String, dynamic>> installedApps,
+    List<Map<dynamic, dynamic>> usageStats) {
+  return installedApps.map((app) {
+    final usage = usageStats.firstWhere(
+      (stat) {
+        return stat['packageName'] == app['packageName'];
+      },
+      orElse: () => {'totalTimeForeground': 0},
+    );
+
+    return {
+      'name': app['name'],
+      'packageName': app['packageName'],
+      'icon': app['icon'],
+      'totalTimeForeground': usage['totalTimeForeground'],
+    };
+  }).toList();
+}
