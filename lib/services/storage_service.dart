@@ -2,32 +2,59 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService {
-  Future<void> saveCombinedDataToStorage(
-      List<Map<String, dynamic>> data) async {
+  Future<void> saveCategoryToStorage(
+      String categoryName,
+      List<Map<String, dynamic>> selectedApps,
+      int screenTime,
+      int blockTime) async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final combinedDataJson = jsonEncode(data);
-      await prefs.setString('combinedAppUsageData', combinedDataJson);
-      print("Data saved to storage: $combinedDataJson");
+
+      // Load the existing categories
+      final storedCategoriesJson = prefs.getString('categories');
+      List<dynamic> storedCategories =
+          storedCategoriesJson != null ? jsonDecode(storedCategoriesJson) : [];
+
+      // Create a new category object
+      final newCategory = {
+        'categoryName': categoryName,
+        'apps': selectedApps,
+        'screenTime': screenTime,
+        'blockTime': blockTime,
+      };
+
+      // Append the new category to the list of categories
+      storedCategories.add(newCategory);
+
+      // Save the updated list of categories to storage
+      final updatedCategoriesJson = jsonEncode(storedCategories);
+      await prefs.setString('categories', updatedCategoriesJson);
+      print('Category Name: $categoryName');
+      print('Selected Apps:');
+      for (var app in selectedApps) {
+        print('- ${app['name']}');
+      }
+      print('Screen Time: $screenTime seconds');
+      print('Block Time: $blockTime seconds');
     } catch (e) {
-      print("Error saving data to storage: $e");
+      print("Error saving category to storage: $e");
     }
   }
 
-  Future<List<Map<String, dynamic>>> loadCombinedDataFromStorage() async {
+  Future<List<Map<String, dynamic>>> loadCategoriesFromStorage() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final combinedDataJson = prefs.getString('combinedAppUsageData');
+      final storedCategoriesJson = prefs.getString('categories');
 
-      if (combinedDataJson != null) {
-        List<dynamic> combinedData = jsonDecode(combinedDataJson);
-        return List<Map<String, dynamic>>.from(combinedData);
+      if (storedCategoriesJson != null) {
+        List<dynamic> storedCategories = jsonDecode(storedCategoriesJson);
+        return List<Map<String, dynamic>>.from(storedCategories);
       } else {
-        print("No data found in storage.");
+        print("No categories found in storage.");
         return [];
       }
     } catch (e) {
-      print("Error loading data from storage: $e");
+      print("Error loading categories from storage: $e");
       return [];
     }
   }
@@ -35,9 +62,10 @@ class StorageService {
   Future<void> clearStorage() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.remove('combinedAppUsageData');
+      await prefs.remove('categories');
+      print("All categories removed from storage.");
     } catch (e) {
-      print("Error clearing data from storage: $e");
+      print("Error clearing storage: $e");
     }
   }
 }

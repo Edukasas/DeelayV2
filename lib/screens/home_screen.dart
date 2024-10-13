@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/widgets/add_limit_button.dart';
-// import 'package:myapp/widgets/app_block_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

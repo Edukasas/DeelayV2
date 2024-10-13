@@ -28,6 +28,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
         ],
       ),
       elevation: 0,
+      automaticallyImplyLeading: false,
     );
   }
 
