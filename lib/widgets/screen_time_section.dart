@@ -24,13 +24,11 @@ class _ScreenTimeSectionState extends State<ScreenTimeSection> {
       ),
       child: const Column(
         // Main column
-        crossAxisAlignment:
-            CrossAxisAlignment.start, // Align items to the start
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
-            // Nested column with two elements
             children: [
               Text(
                 'Screen Time',
@@ -40,7 +38,7 @@ class _ScreenTimeSectionState extends State<ScreenTimeSection> {
                 ),
               ),
               Text(
-                '3h 15m', // Display time here
+                '3h 15m',
                 style: TextStyle(
                   color: Deelay.neutral000,
                   fontSize: 24,
@@ -49,28 +47,39 @@ class _ScreenTimeSectionState extends State<ScreenTimeSection> {
             ],
           ),
           ScreenTimeCircle(),
-          SizedBox(height: 8), // Space between additional texts
-          SizedBox(
-            height: 100, // Adjust height as needed
-            child: ScreenTimeInfo(),
+          SizedBox(height: 8),
+          Column(
+            children: [
+              ScreenTimeInfo(
+                displayText: 'Work',
+                color: Deelay.chart050,
+                timeSpent: '1h 22m',
+                icon: Icons.work,
+              ),
+              SizedBox(height: 8),
+              ScreenTimeInfo(
+                displayText: 'Social',
+                color: Deelay.chart100,
+                timeSpent: '1h 47m',
+                icon: Icons.social_distance_sharp,
+              ),
+              SizedBox(height: 8),
+              ScreenTimeInfo(
+                displayText: 'Video',
+                color: Deelay.chart150,
+                timeSpent: '2h 13m',
+                icon: Icons.video_file,
+              ),
+              ScreenTimeInfo(
+                displayText: 'Bank',
+                color: Deelay.chart200,
+                timeSpent: '53m',
+                icon: Icons.money,
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 }
-
-          // Text(
-          //   'hi',
-          //   style: TextStyle(
-          //     color: Deelay.neutral000,
-          //     fontSize: 20,
-          //   ),
-          // ),
-          // Text(
-          //   'hi 2',
-          //   style: TextStyle(
-          //     color: Deelay.neutral000,
-          //     fontSize: 20,
-          //   ),
-          // )
