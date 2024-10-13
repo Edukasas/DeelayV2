@@ -12,6 +12,7 @@ const TimeLimitWidget({ super.key });
   Widget build(BuildContext context){
     return Container(
       padding: EdgeInsets.all(8.0),
+      margin: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: Deelay.neutral700,
         borderRadius: BorderRadius.circular(15),
@@ -23,18 +24,17 @@ const TimeLimitWidget({ super.key });
           ),
           Container(
             margin: EdgeInsets.only(bottom: 6.0),
-            child: TimeLimitSelector(),
+            child: TimeLimitSelectorDuration(),
           ),
           Container(
-            child: TimeLimitSelectorSecond(),
+            child: TimeLimitSelectorBlock(),
           ),
           Container(
             margin: EdgeInsets.only(top: 10.0),
             child: Row(
-              mainAxisAlignment:  MainAxisAlignment.end,
+              mainAxisAlignment:  MainAxisAlignment.spaceAround,
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(right: 10.0),
+                  Expanded(
                     child: ElevatedButton(
                       style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Deelay.neutral700)),
                       onPressed:() {
@@ -45,15 +45,17 @@ const TimeLimitWidget({ super.key });
                     ),
                     ),
                   ),
-                  ElevatedButton(
-                      style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Deelay.neutral700)),
-                      onPressed:() {
-                      print('Ok button pressed');},
-                      child: Text(
-                      'Ok',
-                      style: TextStyle(color: Deelay.pink, fontWeight: FontWeight.w600),
-                    ),
-                    ),
+                  Expanded(
+                    child: ElevatedButton(
+                        style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Deelay.neutral700)),
+                        onPressed:() {
+                        print('Ok button pressed');},
+                        child: Text(
+                        'Ok',
+                        style: TextStyle(color: Deelay.pink, fontWeight: FontWeight.w600),
+                      ),
+                      ),
+                  ),
               ],
             ),
           )

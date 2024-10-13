@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:myapp/config/constants/colors.dart';
 
-class TimeLimitSelector extends StatefulWidget {
-  const TimeLimitSelector({super.key});
+class TimeLimitSelectorDuration extends StatefulWidget {
+  const TimeLimitSelectorDuration({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _TimeLimitSelector createState() => _TimeLimitSelector();
+  _TimeLimitSelectorDuration createState() => _TimeLimitSelectorDuration();
 }
 
-class _TimeLimitSelector extends State<TimeLimitSelector> {
+class _TimeLimitSelectorDuration extends State<TimeLimitSelectorDuration> {
   DateTime _selectedTime = DateTime.now();
 
   @override
@@ -32,25 +32,25 @@ class _TimeLimitSelector extends State<TimeLimitSelector> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TimePickerSpinner(
-                is24HourMode: true, // 24-hour format for hours
+                is24HourMode: true,
                 normalTextStyle: TextStyle(
                   fontSize: 16,
-                  color: const Color.fromARGB(132, 202, 196, 208), // Default color for unselected text
+                  color: const Color.fromARGB(132, 202, 196, 208),
                 ),
                 highlightedTextStyle: TextStyle(
                   fontSize: 24,
                   color: Deelay.pink,
-                  fontWeight: FontWeight.w500 // Highlight color for selected text
+                  fontWeight: FontWeight.w500,
                 ),
                 spacing: 20,
                 itemHeight: 30,
                 itemWidth: 30,
                 alignment: Alignment.center,
-                isForce2Digits: true, // Forces two digits for the hour display
-                minutesInterval: 5,  // Skips minutes by setting the interval to 60 (effectively hiding them)
+                isForce2Digits: true,
+                minutesInterval: 5,
                 onTimeChange: (time) {
                   setState(() {
-                    _selectedTime = time; // Store the selected hour in _selectedTime
+                    _selectedTime = time;
                   });
                 },
               ),
@@ -81,15 +81,15 @@ class _TimeLimitSelector extends State<TimeLimitSelector> {
   }
 }
 
-class TimeLimitSelectorSecond extends StatefulWidget {
-  const TimeLimitSelectorSecond({super.key});
+class TimeLimitSelectorBlock extends StatefulWidget {
+  const TimeLimitSelectorBlock({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _TimeLimitSelectorSecond createState() => _TimeLimitSelectorSecond();
+  _TimeLimitSelectorBlock createState() => _TimeLimitSelectorBlock();
 }
 
-class _TimeLimitSelectorSecond extends State<TimeLimitSelectorSecond> {
+class _TimeLimitSelectorBlock extends State<TimeLimitSelectorBlock> {
   DateTime _selectedTime = DateTime.now();
 
   @override
@@ -111,25 +111,25 @@ class _TimeLimitSelectorSecond extends State<TimeLimitSelectorSecond> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TimePickerSpinner(
-                is24HourMode: true, // 24-hour format for hours
+                is24HourMode: true,
                 normalTextStyle: TextStyle(
                   fontSize: 16,
-                  color: const Color.fromARGB(132, 202, 196, 208), // Default color for unselected text
+                  color: const Color.fromARGB(132, 202, 196, 208),
                 ),
                 highlightedTextStyle: TextStyle(
                   fontSize: 24,
                   color: Deelay.pink,
-                  fontWeight: FontWeight.w500 // Highlight color for selected text
+                  fontWeight: FontWeight.w500
                 ),
                 spacing: 20,
                 itemHeight: 30,
                 itemWidth: 30,
                 alignment: Alignment.center,
-                isForce2Digits: true, // Forces two digits for the hour display
-                minutesInterval: 5,  // Skips minutes by setting the interval to 60 (effectively hiding them)
+                isForce2Digits: true,
+                minutesInterval: 5,
                 onTimeChange: (time) {
                   setState(() {
-                    _selectedTime = time; // Store the selected hour in _selectedTime
+                    _selectedTime = time;
                   });
                 },
               ),
