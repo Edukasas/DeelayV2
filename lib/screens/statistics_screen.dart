@@ -28,6 +28,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Deelay.neutral900,
       appBar: AppBar(
         backgroundColor: Deelay.neutral900,
         toolbarHeight: 44.0,

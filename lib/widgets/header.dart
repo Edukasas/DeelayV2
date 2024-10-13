@@ -9,7 +9,7 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      centerTitle: true, // Ensures the title is centered
+      centerTitle: true,
       backgroundColor: Deelay.neutral900,
       toolbarHeight: height,
       title: Row(
@@ -17,17 +17,18 @@ class Header extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Container(
             constraints: const BoxConstraints(
-              maxHeight: 64, // Set maximum height for the logo
+              maxHeight: 64,
             ),
             child: Image.asset(
-              'assets/images/logo.png', // Path to your logo image
+              'assets/images/logo.png',
               height: 32,
-              fit: BoxFit.contain, // Maintains aspect ratio
+              fit: BoxFit.contain,
             ),
           ),
         ],
       ),
       elevation: 0,
+      surfaceTintColor: Colors.transparent,
     );
   }
 
