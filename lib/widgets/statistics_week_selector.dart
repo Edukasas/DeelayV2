@@ -45,7 +45,7 @@ class _WeekSelectorState extends State<WeekSelector> {
             style: TextStyle(fontSize: 18.0, color: Deelay.neutral100),
           ),
           Container(
-            child: endOfWeek.isAfter(DateTime.now()) ? IconButton(
+            child:  (endOfWeek.add(Duration(days: 1))).isAfter(DateTime.now()) ? IconButton(
               icon: Icon(Icons.arrow_right, color: Deelay.neutral900,),
               onPressed: null,  // Dont go to next week
             )

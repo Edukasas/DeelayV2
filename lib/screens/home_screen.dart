@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/widgets/add_limit_button.dart';
+import 'package:myapp/widgets/categories_durationlimitselection.dart';
 // import 'package:myapp/widgets/app_block_list.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -20,12 +20,10 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle(fontSize: 24),
             ),
             const SizedBox(height: 20),
-            AddLimitButton(
-              onPressed: () {
-                // Define the action on button click here.
-                print('Button clicked!');
-              },
-            ),
+            TimeLimitWidget(),
+          //  Container(
+            // child: TimeLimitWidget(),
+          //  )
           ],
         ),
       ),
